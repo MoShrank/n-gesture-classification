@@ -1,0 +1,3 @@
+[submodule "aedat"]
+	path = aedat
+	url = git@github.com:MoShrank/aedat.git

@@ -1,0 +1,5 @@
+*.zip
+flatbuffers/
+.vscode
+.ipynb_checkpoints
+data/
