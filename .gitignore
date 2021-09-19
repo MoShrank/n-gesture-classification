@@ -4,3 +4,4 @@ flatbuffers/
 .ipynb_checkpoints
 data/
 .python-version
+/data
