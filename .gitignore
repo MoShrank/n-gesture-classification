@@ -3,3 +3,4 @@ flatbuffers/
 .vscode
 .ipynb_checkpoints
 data/
+.python-version
