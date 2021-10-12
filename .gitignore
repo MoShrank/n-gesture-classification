@@ -5,3 +5,4 @@ flatbuffers/
 data/
 .python-version
 /data
+norse/
