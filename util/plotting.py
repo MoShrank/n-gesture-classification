@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_volt_trace(voltage_trace, v_th, dt, sim_length):
+def plot_voltage_trace(voltage_trace, v_th, dt, sim_length):
     sim_range = np.arange(0, sim_length * dt, dt)
 
     # plot voltage trace
@@ -35,3 +35,15 @@ def plot_volt_trace_with_sra(voltage_trace, v_th, dt, sim_length, sra):
     plt.legend(
         ["Membrane\npotential", None, r"Threshold V$_{\mathrm{th}}$"], loc=[1.05, 0.75]
     )
+    plt.show()
+
+
+def plot_spikes(spike_times, dt, sim_length):
+
+    plt.eventplot(np.array(spike_times) * dt, linelengths=4, colors="k")
+    plt.xlim([0, sim_length * dt])
+
+    plt.title("Spike Times")
+    plt.xlabel("Neuron")
+    plt.ylabel("Spike")
+    plt.show()

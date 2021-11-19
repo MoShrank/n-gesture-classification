@@ -27,3 +27,15 @@ def get_GWN(dt, size, mu, sig, myseed=False):
     I_gwn = mu + sig * np.random.randn(size) / np.sqrt(dt / 1000.0)
 
     return I_gwn
+
+def get_poisson_spike_train(rate, no_spikes, no_spike_trains, dt, seed=None):
+    if seed:
+        np.random.seed(seed=myseed)
+
+    # generate uniformly distributed random variables
+    u_rand = np.random.rand(no_spikes, no_spike_trains)
+
+    # generate Poisson train
+    poisson_train = 1.0 * (u_rand < rate * (dt / 1000.0))
+
+    return poisson_train
