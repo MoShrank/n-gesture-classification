@@ -17,7 +17,7 @@ def plot_voltage_trace(voltage_trace, v_th, dt, sim_length):
     plt.ylim([-80, -40])
 
 
-def plot_volt_trace_with_sra(voltage_trace, v_th, dt, sim_length, sra):
+def plot_voltage_trace_with_sra(voltage_trace, v_th, dt, sim_length, sra):
     sim_range = np.arange(0, sim_length * dt, dt)
 
     fig, axs = plt.subplots(nrows=2, ncols=1)
@@ -26,12 +26,13 @@ def plot_volt_trace_with_sra(voltage_trace, v_th, dt, sim_length, sra):
     axs[0].plot(sim_range, voltage_trace, "b")
     axs[0].axhline(v_th, 0, 1, color="k", ls="--")
     axs[0].set_ylim([-80, -40])
+    axs[0].set_ylabel("V (mV)")
 
     # plot spike rate adaption values
     axs[1].plot(sim_range, sra, "b")
+    axs[1].set_ylabel("SRA (mV)")
 
     plt.xlabel("Time (ms)")
-    plt.ylabel("V (mV)")
     plt.legend(
         ["Membrane\npotential", None, r"Threshold V$_{\mathrm{th}}$"], loc=[1.05, 0.75]
     )
