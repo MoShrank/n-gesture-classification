@@ -1,3 +1,5 @@
+from util.plotting import plot_voltage_trace_with_sra
+
 from BaseNeuronModel import BaseNeuronModel
 
 
@@ -6,7 +8,7 @@ class LIF_Spike_Rate_Adaption(BaseNeuronModel):
         self,
         E_k: float = -65.0,
         g_delta: float = 0.1,
-        tau_g: float = 10.0,
+        tau_g: float = 100.0,
         *args,
         **kwargs
     ):
@@ -24,6 +26,14 @@ class LIF_Spike_Rate_Adaption(BaseNeuronModel):
 
         self.sra = [0.0]
 
+    def plot(self, sim_length: int):
+        if not len(self.voltages):
+            raise (ValueError("No voltages recorded"))
+
+        plot_voltage_trace_with_sra(
+            self.voltages, self.v_th, self.dt, sim_length, self.sra
+        )
+
     def step(self, input_current: float):
         v = self.voltages[-1]
 
@@ -33,7 +43,7 @@ class LIF_Spike_Rate_Adaption(BaseNeuronModel):
             v = self.v_reset
 
             # increase sra conductance
-            d_sra = self.sra[-1] + (self.g_delta / self.tau_m)
+            d_sra = self.g_delta
 
         else:
             # relax sra conductance exponentially to 0
@@ -42,7 +52,7 @@ class LIF_Spike_Rate_Adaption(BaseNeuronModel):
         # calculate membrane voltage change
         dv = (
             (self.dt / self.tau_m) * (self.E_l - v)
-            - (self.tau_m * self.sra[-1] * (self.voltages[-1] - self.E_k))
+            - (self.tau_m * self.sra[-1] * (v - self.E_k))
             + (input_current / self.R)
         )
 
